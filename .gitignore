@@ -20,8 +20,9 @@ my-*.md
 *.wav
 *.zip
 
-# Deep dive (newsletter draft, not for public repo)
+# Newsletter drafts and Notion exports (not for public repo)
 team-os-deep-dive-v4.md
+notion-team-claude-md-template.md
 
 # API keys and secrets (should NEVER be in this repo)
 .env
