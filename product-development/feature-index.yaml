@@ -20,31 +20,45 @@
 # template for new entries.
 
 billing:
-  example-feature-name:
-    prd: product/PRDs/billing/example-feature-prd.md
-    eng-rfc: engineering/rfcs/billing/example-feature-rfc.md
-    eng-plan: engineering/plans/billing/example-feature.md
-    data-eng-rfc: data-engineering/rfcs/billing/example-pipeline-rfc.md
-    data-eng-plan: data-engineering/plans/billing/example-pipeline.md
-    figma: https://figma.com/file/your-figma-file
+  credit-usage-dashboard:
+    # The starter template ships every artifact for this feature so the
+    # /feature-launch-gate gate passes on the example out of the box.
+    prd: product/PRDs/billing/credit-usage-dashboard-prd.md
+    eng-rfc: engineering/rfcs/billing/credit-usage-dashboard-rfc.md
+    eng-plan: engineering/plans/billing/credit-usage-dashboard.md
+    data-eng-rfc: data-engineering/rfcs/billing/credit-ledger-model-rfc.md
+    data-eng-plan: data-engineering/plans/billing/credit-ledger-model.md
+    # Figma references. Use file IDs (the abc123 in the URL), not display
+    # names — file IDs survive renames. For specific frames, add a node-id:
+    # https://figma.com/file/abc123/?node-id=42:128
+    # Multiple Figma artifacts per feature is fine — separate by purpose.
+    figma:
+      flow: https://figma.com/file/your-figma-file
+      prototype: https://figma.com/proto/your-figma-file
+      components: https://figma.com/file/your-design-system-file/?node-id=42:128
     tickets:
       - YOURPROJ/123
       - YOURPROJ/124
     table-schemas:
-      - analytics/schemas/billing/example_table.md
+      - analytics/schemas/billing/billing_events.md
     queries:
-      - analytics/queries/billing/example-query.sql
-    dashboards: analytics/dashboards/billing/example-dashboards.md
+      - analytics/queries/billing/churn_by_segment.sql
+    metrics:
+      - analytics/metrics/billing/billing-metrics.md
+    dashboards: analytics/dashboards/billing/credit-usage-dashboards.md
     experiments:
-      - analytics/experiments/billing/example-experiment-results.md
+      - analytics/experiments/billing/low-balance-warning-2026-03-05-experiment-results.md
     investigations:
-      - analytics/investigations/billing/YYYY-MM-DD-example-investigation.md
+      - analytics/investigations/billing/2026-03-10-credit-depletion-churn-analysis.md
     bug-investigations:
-      - engineering/bug-investigations/billing/bug-MM-DD-YYYY-example/investigation-plan.md
+      - engineering/bug-investigations/billing/bug-03-12-2026-credit-double-charge/investigation-plan.md
+    decisions:
+      - product/decisions/2026-02-14-usage-based-pricing.md
 
 # Add more product areas here. Common starting set:
 # onboarding:
-#   ...
+#   first-run-experience:
+#     prd: ...
 # core-product:
 #   ...
 # growth:

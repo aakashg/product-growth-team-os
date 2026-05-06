@@ -30,7 +30,7 @@ Revisit if: churn on any tier exceeds 5% for two consecutive months, or if compu
 
 ## Related
 
-- `../PRDs/billing/pricing-v2-prd.md`
+- `../PRDs/billing/credit-usage-dashboard-prd.md` (downstream — usage-based pricing motivated the credit dashboard)
 - `../../analytics/metrics/billing/billing-metrics.md`
 - `../../analytics/queries/billing/churn_by_segment.sql`
-- `../../feature-index.yaml#billing.pricing-v2`
+- `../../feature-index.yaml#billing.credit-usage-dashboard`

@@ -4,15 +4,31 @@
 # find the right table without reading every schema doc. For column-level
 # detail, see analytics/schemas/{area}/.
 #
-# Pattern from Hannah Stulberg's open-source Team OS repo.
+# Pattern from Hannah Stulberg's open-source Team OS repo, with extensions
+# (pii flag, grain, partition_key, last_validated) for richer cross-referencing.
 #
 # Conventions
 # - One entry per table you query regularly. Skip ephemeral or staging tables.
-# - owner is a team or person from the team roster.
-# - refresh: daily | hourly | streaming (Snowpipe / Kafka) | manual.
-# - upstream: where the data originates (e.g. "Stripe → Fivetran").
-# - used_by: list of analyses or dashboards that depend on this table.
-# - schema_doc points to the full column-level doc when one exists.
+# - owner: a team or person from the team roster
+# - refresh: daily | hourly | streaming (Snowpipe / Kafka) | manual
+# - upstream: where the data originates (e.g. "Stripe → Fivetran")
+# - grain: one sentence describing the unit per row (e.g. "one row per
+#   subscription state change") — biggest single time-saver in cross-team
+#   work
+# - pii: true | false — true if any column may contain personal data; gates
+#   the table behind a PII access policy
+# - partition_key: column the table is partitioned/clustered on (perf hint
+#   for analysts writing big queries)
+# - last_validated: YYYY-MM-DD when an analyst last confirmed the schema
+#   matches reality. /freshness-check will flag entries older than 90 days
+# - row_count_estimate: rough size hint so analysts know whether to LIMIT or
+#   sample. Update quarterly.
+# - used_by: list of references that depend on this table. Each entry is
+#   either an analytics-relative path (this file lives in analytics/, so
+#   start paths with subfolders like dashboards/... queries/...) or a
+#   feature-index key (feature-index.yaml#area.feature). No free-text labels.
+# - schema_doc: analytics-relative path to the full column-level doc
+#   (start with schemas/...) — must point to a real file
 
 tables:
 
@@ -25,7 +41,14 @@ tables:
     owner: data-engineering
     refresh: daily
     upstream: Auth service → Fivetran
-    used_by: [retention, activation, funnel analysis]
+    grain: one row per user
+    row_count_estimate: ~2M total
+    pii: true
+    partition_key: signup_date
+    last_validated: 2026-04-15
+    used_by:
+      - feature-index.yaml#onboarding.first-run-experience
+    schema_doc: schemas/onboarding/users.md
 
   organizations:
     database: ANALYTICS
@@ -34,17 +57,51 @@ tables:
     owner: data-engineering
     refresh: daily
     upstream: Billing service → Fivetran
-    used_by: [revenue reporting, account health, seat analysis]
+    grain: one row per organization
+    row_count_estimate: ~80K total
+    pii: false
+    partition_key: created_at
+    last_validated: 2026-04-15
+    used_by:
+      - dashboards/billing/credit-usage-dashboards.md
+      - feature-index.yaml#billing.credit-usage-dashboard
+    schema_doc: schemas/billing/organizations.md
 
   billing_events:
     database: ANALYTICS
     schema: PROD
     description: Billing event log — subscriptions, charges, refunds, churn signals
     owner: data-engineering
+    refresh: streaming (Snowpipe)
+    upstream: Stripe → Snowpipe
+    grain: one row per billing event
+    row_count_estimate: ~30M total, ~800K/day
+    pii: false
+    partition_key: created_at
+    last_validated: 2026-04-15
+    used_by:
+      - dashboards/billing/credit-usage-dashboards.md
+      - queries/billing/churn_by_segment.sql
+      - feature-index.yaml#billing.credit-usage-dashboard
+    schema_doc: schemas/billing/billing_events.md
+
+  subscriptions:
+    database: ANALYTICS
+    schema: PROD
+    description: Subscription state — active/cancelled/paused, tier, segment, MRR per period
+    owner: data-engineering
     refresh: daily
     upstream: Stripe → Fivetran
-    used_by: [revenue, churn, expansion]
-    schema_doc: schemas/billing/billing_events.md
+    grain: one row per subscription state (multi-row per customer if they upgraded/downgraded)
+    row_count_estimate: ~50K total
+    pii: false
+    partition_key: start_date
+    last_validated: 2026-04-15
+    used_by:
+      - queries/billing/churn_by_segment.sql
+      - metrics/billing/billing-metrics.md
+      - feature-index.yaml#billing.credit-usage-dashboard
+    schema_doc: schemas/billing/subscriptions.md
 
 # Add more tables as your team registers them. Common starting set:
 #   feature_events, deploys, sessions, experiments_assignments, ...

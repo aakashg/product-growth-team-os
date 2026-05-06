@@ -1,52 +1,145 @@
 -- Churn by Segment
--- Returns monthly churn rate broken down by customer segment
--- Verified by: [Analyst Name] on [Date]
--- Last updated: [Date]
--- Warehouse: [Snowflake / BigQuery / Redshift — update to match yours]
--- Dashboard: [Link to connected dashboard]
+-- Returns monthly churn rate broken down by customer segment + tier.
+-- Churn rate = (customers who churned in month) / (customers active at start of month).
+--
+-- "Churn" here = voluntary cancellations only (event_type = 'cancellation' AND
+-- cancellation_reason = 'voluntary'). For involuntary churn or combined, see
+-- the Variants section at the bottom.
+--
+-- "Customers active at start of month" = had an active subscription on day 1
+-- of the month. Computed from `subscriptions` as of the month boundary.
+--
+-- Verified by:    [Analyst Name]
+-- Last verified:  [YYYY-MM-DD]
+-- Owner:          [Analyst Name]
+-- Dashboard:      [Link to connected dashboard]
+-- Tables used:    billing_events, subscriptions (see analytics/data-catalog.yaml)
+--
+-- Pick the block matching your warehouse and run it as-is. Each block is
+-- runnable; the differences are in the date math.
 
 -- ============================================
--- SNOWFLAKE VERSION
+-- SNOWFLAKE
 -- ============================================
--- If you use Snowflake, use this query as-is.
--- If you use BigQuery or Redshift, see the variants below.
-
+WITH month_starts AS (
+    SELECT DATE_TRUNC('month', DATEADD('month', -i.value, CURRENT_DATE)) AS month_start
+    FROM (SELECT 0 AS value UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5) i
+),
+active_at_month_start AS (
+    SELECT
+        m.month_start,
+        s.segment,
+        s.tier,
+        COUNT(DISTINCT s.customer_id) AS active_customers
+    FROM month_starts m
+    JOIN subscriptions s
+        ON s.start_date <= m.month_start
+        AND (s.end_date IS NULL OR s.end_date > m.month_start)
+        AND s.status = 'active'
+    GROUP BY 1, 2, 3
+),
+churned_in_month AS (
+    SELECT
+        DATE_TRUNC('month', be.created_at) AS month_start,
+        s.segment,
+        s.tier,
+        COUNT(DISTINCT be.customer_id) AS churned_customers
+    FROM billing_events be
+    JOIN subscriptions s ON be.customer_id = s.customer_id
+    WHERE be.event_type = 'cancellation'
+        AND be.cancellation_reason = 'voluntary'
+        AND be.created_at >= DATEADD('month', -6, DATE_TRUNC('month', CURRENT_DATE))
+    GROUP BY 1, 2, 3
+)
 SELECT
-    DATE_TRUNC('month', be.created_at) AS churn_month,
-    s.segment,
-    s.tier,
-    COUNT(DISTINCT CASE WHEN be.event_type = 'cancellation' THEN be.customer_id END) AS churned_customers,
-    COUNT(DISTINCT s.customer_id) AS total_customers_start,
+    a.month_start AS churn_month,
+    a.segment,
+    a.tier,
+    COALESCE(c.churned_customers, 0) AS churned_customers,
+    a.active_customers AS total_customers_start,
     ROUND(
-        COUNT(DISTINCT CASE WHEN be.event_type = 'cancellation' THEN be.customer_id END)::DECIMAL
-        / NULLIF(COUNT(DISTINCT s.customer_id), 0) * 100,
+        COALESCE(c.churned_customers, 0)::DECIMAL
+        / NULLIF(a.active_customers, 0) * 100,
         2
     ) AS churn_rate_pct
-FROM billing_events be
-JOIN subscriptions s ON be.customer_id = s.customer_id
-WHERE be.event_type = 'cancellation'
-    AND be.created_at >= DATEADD('month', -6, CURRENT_DATE)
-GROUP BY 1, 2, 3
+FROM active_at_month_start a
+LEFT JOIN churned_in_month c
+    ON a.month_start = c.month_start AND a.segment = c.segment AND a.tier = c.tier
 ORDER BY churn_month DESC, churn_rate_pct DESC;
 
 -- ============================================
--- BIGQUERY VARIANT
+-- BIGQUERY
 -- ============================================
--- Replace: DATEADD('month', -6, CURRENT_DATE) → DATE_SUB(CURRENT_DATE(), INTERVAL 6 MONTH)
--- Replace: ::DECIMAL → no cast needed (BigQuery auto-handles)
--- Replace: ROUND(..., 2) → ROUND(..., 2) (same)
+-- WITH month_starts AS (
+--     SELECT DATE_TRUNC(DATE_SUB(CURRENT_DATE(), INTERVAL i MONTH), MONTH) AS month_start
+--     FROM UNNEST([0, 1, 2, 3, 4, 5]) AS i
+-- ),
+-- active_at_month_start AS (
+--     SELECT
+--         m.month_start,
+--         s.segment,
+--         s.tier,
+--         COUNT(DISTINCT s.customer_id) AS active_customers
+--     FROM month_starts m
+--     JOIN subscriptions s
+--         ON s.start_date <= m.month_start
+--         AND (s.end_date IS NULL OR s.end_date > m.month_start)
+--         AND s.status = 'active'
+--     GROUP BY 1, 2, 3
+-- ),
+-- churned_in_month AS (
+--     SELECT
+--         DATE_TRUNC(be.created_at, MONTH) AS month_start,
+--         s.segment,
+--         s.tier,
+--         COUNT(DISTINCT be.customer_id) AS churned_customers
+--     FROM billing_events be
+--     JOIN subscriptions s ON be.customer_id = s.customer_id
+--     WHERE be.event_type = 'cancellation'
+--         AND be.cancellation_reason = 'voluntary'
+--         AND be.created_at >= DATE_SUB(DATE_TRUNC(CURRENT_DATE(), MONTH), INTERVAL 6 MONTH)
+--     GROUP BY 1, 2, 3
+-- )
+-- SELECT
+--     a.month_start AS churn_month,
+--     a.segment,
+--     a.tier,
+--     IFNULL(c.churned_customers, 0) AS churned_customers,
+--     a.active_customers AS total_customers_start,
+--     ROUND(
+--         SAFE_DIVIDE(IFNULL(c.churned_customers, 0), a.active_customers) * 100,
+--         2
+--     ) AS churn_rate_pct
+-- FROM active_at_month_start a
+-- LEFT JOIN churned_in_month c USING (month_start, segment, tier)
+-- ORDER BY churn_month DESC, churn_rate_pct DESC;
 
 -- ============================================
--- REDSHIFT VARIANT
+-- REDSHIFT
 -- ============================================
--- Replace: DATEADD('month', -6, CURRENT_DATE) → DATEADD(month, -6, GETDATE())
--- Otherwise syntax is compatible with Snowflake version.
+-- (Same shape as Snowflake, replace DATEADD('month', -X, ...) with
+--  DATEADD(month, -X, ...) and CURRENT_DATE with GETDATE().)
+
+-- ============================================
+-- VARIANTS
+-- ============================================
+-- Combined churn (voluntary + involuntary):
+--   In churned_in_month, drop the cancellation_reason filter.
+--
+-- Involuntary churn only:
+--   In churned_in_month, change cancellation_reason = 'voluntary' to
+--   cancellation_reason = 'payment_failed'.
+--
+-- Calendar-month vs. rolling-30d window:
+--   This query measures calendar months. For rolling-30d, replace
+--   DATE_TRUNC('month', ...) with explicit 30-day windows.
 
 -- ============================================
 -- NOTES
 -- ============================================
--- "cancellation" includes voluntary cancels AND failed payment churns
 -- Segment values: 'enterprise', 'mid-market', 'smb', 'self-serve'
 -- Tier values: 'basic', 'pro', 'enterprise'
--- For involuntary churn only: add WHERE be.cancellation_reason = 'payment_failed'
--- Data quality: filter to be.created_at >= '2025-06-01' for consistent schema
+-- Schema cutoff: filter be.created_at >= '2025-06-01' to avoid pre-rewrite events
+-- Freshness: billing_events is streaming via Snowpipe; lag typically < 5min,
+--   alerts at > 15min. If you're investigating an anomaly < 15 min old, check
+--   pipeline lag before drawing conclusions.

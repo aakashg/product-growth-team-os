@@ -1,8 +1,15 @@
 # billing_events
 
-Source: [Your data warehouse — Snowflake/BigQuery/etc.]
-Updated: Real-time via event stream
-Owner: [Data Engineering]
+| | |
+|---|---|
+| **Source** | [Your data warehouse — Snowflake/BigQuery/etc.] |
+| **Refresh** | streaming via Snowpipe |
+| **Typical lag** | < 5 min; PagerDuty alert at > 15 min |
+| **Volume** | ~800K events/day (current); 30M total |
+| **Partition key** | `created_at` (clustered/partitioned daily) |
+| **PII** | no — event metadata only, no customer names or emails |
+| **Grain** | one row per billing event |
+| **Owner** | data-engineering |
 
 ## Columns
 
