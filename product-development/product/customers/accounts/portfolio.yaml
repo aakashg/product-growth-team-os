@@ -1,0 +1,51 @@
+# Account Portfolio Registry
+#
+# Single rollup of every managed/named account. The "skip the per-account
+# folder for routine queries" reference for execs and CSMs. For deep context
+# per account, follow the `folder` link to the account's `account-context.md`.
+#
+# Conventions
+# - One entry per managed account. Self-serve customers stay in aggregate
+#   analytics; they don't go here.
+# - status: healthy | at-risk | expanding | churning | new
+# - health_score: 1-5 scale (5 = best). Owner is responsible for keeping
+#   this fresh — /freshness-check flags entries unchanged in 30+ days.
+# - last_call: YYYY-MM-DD of the most recent call (matches the latest file
+#   in `accounts/{slug}/calls/summaries/`). The /customer-call command
+#   updates this automatically.
+# - next_milestone: the next dated thing on the calendar — renewal,
+#   demo, board review. Drives prioritization.
+# - expansion_signal: short phrase if expansion is active (e.g. "Asked for
+#   pricing on Enterprise tier 2026-04-22"). Empty otherwise.
+# - risks: list of one-line risks. Each maps to a section in
+#   account-context.md if more depth needed.
+# - feature_requests: list of feature-index keys this account is waiting on
+# - account_owner: name from team roster
+#
+# Used by: /portfolio-pulse skill, CPO morning ritual, /weekly-synthesis exec
+# mode, the bi-weekly workflow's customer synthesis step.
+
+accounts:
+
+  # --- Replace this with your real accounts. Keep one as a template. ---
+
+  example-customer:
+    slug: example-customer
+    folder: example-customer/
+    segment: growth
+    plan_tier: pro
+    status: expanding
+    health_score: 4
+    last_call: 2026-04-22
+    next_milestone:
+      type: pilot-procurement-demo
+      date: 2026-05-05
+    renewal_date: 2026-12-15
+    arr_band: 100k-250k
+    expansion_signal: "Validated credit-dashboard hypothesis; staged procurement demo"
+    risks:
+      - "Tier-switch modal UX — flagged 3x; if not shipped Q2, churn risk"
+    feature_requests:
+      - feature-index.yaml#billing.credit-usage-dashboard
+    account_owner: hannah
+    last_updated: 2026-04-28

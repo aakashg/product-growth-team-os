@@ -32,3 +32,11 @@
 
 - Confirm Team Workspaces rollout owners on their side (asked 2026-04-28, no reply yet)
 - Send updated SOC2 evidence package (committed 2026-05-02, due 2026-05-15)
+
+## UX Findings (Recurring)
+
+Patterns this account has surfaced more than once. Designers should consult this list before designing for these surfaces:
+
+- **Tier-switch modal:** they've reported confusion about price delta on three separate calls. See `design/audits/example-2026-04-15-pricing-page-audit.md` for the full audit and recommendations.
+- **Credit dashboard depth:** they want per-project breakdown, not just per-organization. Logged as a v2 feature request.
+- **Email alert tone:** their VP described the 80% low-balance email as "panicky" — opportunity to soften copy.
