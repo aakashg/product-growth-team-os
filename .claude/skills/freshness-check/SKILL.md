@@ -69,6 +69,13 @@ To add custom exceptions, create a `.freshness-ignore` file in the repo root lis
 ### Should-Have-Been-Updated
 - analytics/metrics/billing/credit-usage-metrics.md hasn't changed in 75 days, but feature-index.yaml#billing.credit-usage-dashboard shipped 12 days ago. Likely stale.
 
+### Schema Drift (--schema-drift mode, requires warehouse access)
+- analytics/schemas/billing/billing_events.md lists 8 columns; `INFORMATION_SCHEMA` for `ANALYTICS.PROD.billing_events` shows 9. New column `discount_code` not documented. Update schema doc + bump `data-catalog.yaml#billing_events.last_validated`.
+- If warehouse access isn't configured, this section is skipped with a note.
+
+### PENDING Forward References (--pending mode)
+- product/decisions/2026-04-22-vendor-x.md cites `[PENDING: customers/accounts/acme/calls/summaries/2026-04-22.md]` — file still missing 14+ days later. Either fill it in or remove the reference.
+
 ### Recovery Suggestions (if many files are stale)
 If 30%+ of files are stale, the repo needs a recovery session:
 1. Block 1 hour with the team

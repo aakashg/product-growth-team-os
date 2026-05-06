@@ -89,4 +89,4 @@ This gentle nudge prevents the repo from going silent without being preachy.
 3. If Slack MCP connected, post to the team's product channel. If not, save to `team/weekly-syntheses/{YYYY-MM-DD}.md`
 4. Tag specific people if a change is relevant to them (using roster from root CLAUDE.md).
 5. Include the "New contributors" callout to celebrate adoption.
-6. For multi-team setups: each team should run their own synthesis in their own channel. Don't merge teams into one digest.
+6. For multi-team setups: each team should run their own `/weekly-synthesis` in their own channel for repo-level changes. The exec-grade rollup across teams (top risks, expansion signals, account health) is the `/portfolio-pulse` skill — see `.claude/skills/portfolio-pulse/SKILL.md`. Pair the two on Friday afternoon for the full picture.

@@ -16,9 +16,13 @@ Only named/managed accounts get folders. Self-serve customers live in dashboards
 
 | Account | Segment | Folder | Last Call |
 |---------|---------|--------|-----------|
-| Example Customer | Growth | [accounts/example-customer/](accounts/example-customer/CLAUDE.md) | (none yet) |
+| Example Customer | Growth | [accounts/example-customer/](accounts/example-customer/CLAUDE.md) | 2026-04-22 (synthetic) |
 
 > Add a row per managed account during initial setup. Update **Last Call** when you save a new summary.
+
+## Portfolio Rollup
+
+For the rollup view across **all** named accounts (status, health score, ARR band, next milestone, expansion signals, risks), see `accounts/portfolio.yaml`. Used by the `/portfolio-pulse` skill and the CPO morning-ritual workflow to surface portfolio-wide priorities without grepping every account folder.
 
 ## Folder Layout
 

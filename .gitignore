@@ -24,6 +24,12 @@ my-*.md
 team-os-deep-dive-v4.md
 notion-team-claude-md-template.md
 
+# Live multi-user simulation working notes (local-only)
+LIVE-TESTING-NOTES.md
+
+# Personal scratch files
+mayer-tweet-timestamps.md
+
 # API keys and secrets (should NEVER be in this repo)
 .env
 *.key

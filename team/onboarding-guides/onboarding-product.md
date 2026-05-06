@@ -2,6 +2,8 @@
 
 Setup and orientation specific to product managers.
 
+> Read [onboarding-general.md](onboarding-general.md) **first** — it has the Day 1-5 reading list and the warning about repos that are still mostly placeholders. This guide layers PM-specifics on top.
+
 ## Setup
 
 ### Shared Tools

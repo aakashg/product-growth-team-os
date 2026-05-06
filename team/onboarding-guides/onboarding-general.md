@@ -2,6 +2,24 @@
 
 This guide covers setup and orientation common to every new team member. Role-specific guides are linked at the bottom.
 
+> **If the repo looks like all bracketed placeholder text** (`[Your Product]`, `[Name]`, `[Priority 1]`, "Example Customer (synthetic)"), the team hasn't finished setting it up yet. Tell your manager — point them at [MINIMAL-SETUP.md](../../MINIMAL-SETUP.md). Don't try to onboard from a template; you'll learn nothing real. Wait for at least the root CLAUDE.md, the current-quarter roadmap, and the customer roster to be filled in.
+
+## Your First Week (Reading List)
+
+A populated Team OS gives you 6 months of context in 5 days. Walk it in this order:
+
+| Day | Read | Why |
+|-----|------|-----|
+| Day 1 morning | Root `CLAUDE.md` (team, channels, doc index, three rules) | Who's who, where things live, how the team operates |
+| Day 1 afternoon | `product/strategy/roadmaps/current-quarter.md` and `product/strategy/business-context/` | What we're building this quarter and why this business exists |
+| Day 2 | The 3 most recent files in `product/decisions/` | Recent calls and their reasoning — fastest catch-up to "team mind" |
+| Day 3 | The 5 most recent files in `product/customers/accounts/{customer}/calls/summaries/` (across customers) | Voice of the customer — what's working, what's not |
+| Day 3 afternoon | `product/competitive-research/competitors/` (skim the matrix + 2 competitors) | Where the market sits |
+| Day 4 | Your role-specific onboarding guide (linked at the bottom) | Setup, tools, role-specific reading |
+| Day 5 | Your first PR — see "Your First Contribution" below | Cement the workflow muscle memory |
+
+Adjust by role: engineers swap Day 3 customer calls for the 3 most recent RFCs and bug investigations; analysts swap for the 3 most recent investigations; designers swap for `design/audits/` and the latest research syntheses.
+
 ## What Is This Repo?
 
 Your team's shared knowledge base. Every document, decision, metric definition, and customer insight lives here in a structure that AI agents (Claude Code, Cursor, etc.) and humans can query. Instead of asking the PM "why did we choose X?" or "where's the churn query?" — you ask the repo.
@@ -98,7 +116,9 @@ These small inputs compound into institutional memory.
 
 ## Role-Specific Guides
 
-Pick the one that matches your function:
+If your team has fewer than 5 people and you wear multiple hats, **skip role-specific guides** — the general guide above plus `github-101.md` is enough. Come back when your team grows past 5.
+
+Otherwise pick the one that matches your function:
 
 - [Product](onboarding-product.md) — PMs
 - [Engineering](onboarding-engineering.md) — engineers

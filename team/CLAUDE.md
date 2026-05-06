@@ -12,6 +12,8 @@ Team resources, onboarding guides, and retrospectives.
 
 ## Onboarding Guides
 
+> Trim this table after running Step Zero in `MINIMAL-SETUP.md` — if you deleted role files for functions you don't have, remove the corresponding rows below.
+
 | Guide | For |
 |-------|-----|
 | [onboarding-general.md](onboarding-guides/onboarding-general.md) | All new hires — shared tools, repos, channels, first tasks, FAQ |

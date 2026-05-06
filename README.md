@@ -123,6 +123,12 @@ The architecture is tool-agnostic. Examples use Claude Code, but the structure w
 - **OpenAI Codex** (`AGENTS.md` at the same root level as `CLAUDE.md`)
 - **Any tool that reads markdown files in a repo**
 
+## Portability (If You Switch AI Vendors)
+
+**The repo is plain markdown and YAML in folders.** Nothing about the team's institutional knowledge depends on Anthropic, Claude, or any specific harness. If you switch from Claude Code to Cursor, OpenAI Codex, GitHub Copilot, or a future entrant: the only file that needs renaming is `CLAUDE.md` → the new tool's equivalent (`AGENTS.md`, `.cursor/...`, `.github/copilot-instructions.md`). The skills convert in an afternoon — the SKILL.md folder pattern is the cross-tool standard. Your decisions, customer summaries, metrics, schemas, and PRDs survive untouched.
+
+The harness is swappable. The institutional memory isn't.
+
 ## Credits and License
 
 - Structure: [Hannah Stulberg's open-source Team OS](https://github.com/in-the-weeds-hannah-stulberg/team-os-example-repo) — `feature-index.yaml`, `data-catalog.yaml`, product-area subfoldering, SKILL.md folder convention, role-specific onboarding, customer-call workflow

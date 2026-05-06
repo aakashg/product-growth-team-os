@@ -2,6 +2,35 @@
 
 The full Team OS has many folders. You don't need all of them on day one. Start here.
 
+> **For the person SETTING UP the repo, not for new hires joining a team that's already running.** If you joined a team and your manager pointed you here, **stop** — you don't want to delete folders. Open [team/onboarding-guides/onboarding-general.md](team/onboarding-guides/onboarding-general.md) instead.
+
+## Step Zero: Delete What You Don't Use
+
+The starter ships with example folders for a hypothetical 10-person team. Before your first commit, **delete the folders you don't need**. Re-add them later via the "When to Expand" table below.
+
+For a 3-person team, delete these:
+
+```
+rm -rf product-development/data-engineering/                              # no data eng yet
+rm -rf product-development/product/meetings/                              # no formal sprint cadence
+rm -rf product-development/product/workflows/                             # bi-weekly cadence is overkill
+rm -rf product-development/product/sales-enablement/                      # add when you hire sales
+rm -rf product-development/product/processes/                             # add when you have processes
+rm -rf product-development/product/product-context/                       # add when you onboard others
+rm -rf product-development/analytics/dashboards/                          # add when you have dashboards
+rm -rf product-development/analytics/experiments/                         # add when you run experiments
+rm -rf product-development/analytics/investigations/                      # add when you investigate
+rm team/onboarding-guides/onboarding-data-engineering.md
+rm team/onboarding-guides/onboarding-analytics.md
+rm team/onboarding-guides/onboarding-strategy-ops.md
+```
+
+Trim the `billing/` worked example to just the three files you'll actually consult day one — `analytics/metrics/billing/billing-metrics.md`, `analytics/queries/billing/churn_by_segment.sql`, `analytics/schemas/billing/billing_events.md`. Delete the rest of the billing example (PRD, RFC, plans, experiments, investigations, bug-investigations, dashboards) — they're enterprise scaffolding you don't need yet.
+
+Cut the root `CLAUDE.md` team table from 6 rows to your actual roles. Cut the Slack channel table to your actual channels. Don't pretend to scale you don't have.
+
+After this trim, you have ~15 files instead of ~95, and the repo stops looking like someone else's enterprise scaffolding.
+
 ## The 3-Folder Start
 
 ```

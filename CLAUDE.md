@@ -3,32 +3,46 @@
 Your team's shared knowledge base. Every document, decision, metric definition, and customer insight lives in a structure that AI agents and humans can query.
 
 > Replace `[Your Product]` and the bracketed placeholders below with your actual values during initial setup. Keep this file under ~150 lines — it loads every session.
+>
+> **Solo PM or 2-5 person team?** Trim the Team and Slack tables below to your actual roles/channels — don't pretend to scale you don't have. Then read [MINIMAL-SETUP.md](MINIMAL-SETUP.md) for the "delete what you don't use" path.
 
 ## Team
 
-| Function | Team Member | GitHub | Linear / Jira / Asana ID | Slack ID |
-|----------|-------------|--------|--------------------------|----------|
-| PM | [Your Name] | `[github]` | `[id]` | `[slack-id]` |
-| Eng Lead | [Name] | `[github]` | `[id]` | `[slack-id]` |
-| Engineer | [Name] | `[github]` | `[id]` | `[slack-id]` |
-| Designer | [Name] | `[github]` | `[id]` | `[slack-id]` |
-| Analytics | [Name] | `[github]` | `[id]` | `[slack-id]` |
-| Strategy & Ops | [Name] | `[github]` | `[id]` | `[slack-id]` |
+> Default rows match a 3-person team. Add rows (Designer, Analytics, Data Engineering, Strategy & Ops) as your team grows. Fill in the Escalation column once you have on-call rotations.
+
+| Function | Team Member | GitHub | Slack ID | After-Hours Escalation |
+|----------|-------------|--------|----------|------------------------|
+| PM | [Your Name] | `[github]` | `[slack-id]` | [phone or page link] |
+| Engineer | [Name] | `[github]` | `[slack-id]` | [phone or page link] |
+| Designer | [Name] | `[github]` | `[slack-id]` | — |
 
 ## Slack Channels
 
+> Default rows match a small team. Add channels (`#data`, `#launches`, `#incidents`) as you scale.
+
 | Channel | ID | Visibility | Purpose |
 |---------|----|--------|---------|
-| `#[team]-product` | `[id]` | Private | PRD reviews, roadmap, feature prioritization |
+| `#[team]-general` | `[id]` | Private | Team-wide announcements |
+| `#[team]-product` | `[id]` | Private | PRD reviews, roadmap, customer feedback |
 | `#[team]-eng` | `[id]` | Private | Engineering discussion, deploys, incidents |
-| `#[team]-design` | `[id]` | Private | Design critiques, asset reviews, UX research |
-| `#[team]-data` | `[id]` | Private | Metrics, experiments, dashboards |
-| `#[team]-launches` | `[id]` | Public | Launch coordination, GTM updates |
-| `#[team]-incidents` | `[id]` | Public | Production incidents, postmortems |
 
 ## Doc Index
 
 **When looking up artifacts for a specific feature (PRDs, RFCs, plans, schemas, dashboards, experiments, tickets), check `product-development/feature-index.yaml` first.** It maps every feature to all related artifacts in one place.
+
+### Read Order for Common Queries
+
+Don't load every CLAUDE.md eagerly. Follow these read orders:
+
+| Query | Read order |
+|-------|-----------|
+| *"What's the state of feature X?"* | `feature-index.yaml#X` → linked PRD, RFC, plan, latest experiment / investigation |
+| *"What did customer Y say last call?"* | `customers/accounts/{Y}/calls/summaries/{latest}.md` → only open the transcript if the summary doesn't answer |
+| *"Why did we choose Z?"* | `decisions/CLAUDE.md` (recent decisions list) → the dated decision file |
+| *"How do we calculate metric M?"* | `analytics/metrics/{area}/` → linked query → schema only if column-level detail needed |
+| *"Where's the data for X?"* | `analytics/data-catalog.yaml` → schema doc only if needed |
+| *"I'm investigating a production issue right now"* | `engineering/playbooks/incident-response.md` → `engineering/bug-investigations/CLAUDE.md` (search prior incidents) → `analytics/data-catalog.yaml` for the relevant table → `analytics/queries/{area}/` for ready-made SQL |
+| *"What's the state of my book of business? Top risks today?"* | `customers/accounts/portfolio.yaml` → `/portfolio-pulse --mode=daily` (or weekly / board) → `workflows/cpo-morning-ritual/` for the full daily workflow |
 
 | Area | File | Description |
 |------|------|-------------|

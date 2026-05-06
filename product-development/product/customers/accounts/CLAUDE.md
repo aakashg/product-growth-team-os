@@ -25,4 +25,4 @@ Every account uses the same shape so cross-customer queries work:
 
 ## Customer Slugs
 
-Use lowercase-with-hyphens: `acme-corp`, `axiom-logistics`, `meridian-health`. No spaces, no caps.
+Use lowercase-with-hyphens: `acme-corp`, `axiom-logistics`, `meridian-health`. No spaces, no caps. **Transliterate diacritics** for ASCII compatibility — `Crémant Café` → `cremant-cafe`, `Müller GmbH` → `muller-gmbh`, `Société Générale` → `societe-generale`. The display name in `account-context.md` keeps the original characters; the folder slug uses ASCII so paths, grep, and CI tooling work consistently across the team.

@@ -85,11 +85,28 @@ For decisions made quickly without formal deliberation:
 
 Hannah's repo logs architectural rationale in RFCs and design rationale in PRDs. We add a decisions/ folder for decisions that don't fit either — pricing, GTM, scoping, prioritization, vendor selection. If your decision is purely architectural, log it in `engineering/rfcs/{area}/{slug}-rfc.md` instead.
 
+## Same-Day Decisions
+
+If two decisions land on the same day, file names like `2026-05-06-vendor-x.md` and `2026-05-06-launch-delay.md` don't collide because the slugs differ. **If two decisions on the same day would have overlapping slugs**, append a 2-digit sequence: `2026-05-06-pricing-01.md`, `2026-05-06-pricing-02.md`. Before writing, `ls` the decisions folder for files matching the date prefix to detect collisions.
+
+## Forward References
+
+If your decision cites a file that hasn't been written yet (a customer-call summary about to be filed, a PRD scoped but not started), don't fabricate the link. Use a `[PENDING:]` marker so future readers know it's intentional, not broken:
+
+```markdown
+## Related
+
+- [PENDING: customers/accounts/acme/calls/summaries/2026-05-06.md] — call that prompted this decision
+- `../PRDs/billing/example-feature-prd.md`
+```
+
+The `/freshness-check` skill flags `[PENDING:]` markers older than 14 days so they don't rot indefinitely.
+
 ## Rules
 
 1. Full entries: under 200 words. Quick entries: under 75 words. This is a log, not a doc.
 2. Always include at least 2 options in full entries. If the team didn't consider alternatives, note: "No alternatives formally considered — fast decision based on [reason]." Or use the quick entry format.
-3. After saving, update `product-development/product/decisions/CLAUDE.md` with the new entry.
+3. After saving, **append** to the bottom of the "Recent Decisions" list in `product-development/product/decisions/CLAUDE.md` (one bullet per line, one decision per bullet). Don't insert in the middle — that creates merge conflicts when two PMs file decisions the same day. If you hit a merge conflict on the index, keep both bullets and re-sort by date+sequence.
 4. The "Reasoning" section must answer WHY, not WHAT. "We chose X" is not reasoning. "We chose X because our cost ratio is 22x" is reasoning.
 5. When a decision is reversed or superseded, don't delete the old entry. Update its Status field to "Superseded by [link to new decision]" or "Reversed on [date] — see [link]". The history of why we changed our minds is as valuable as the original decision.
 6. Use the team roster from root CLAUDE.md for the "Decided by" field. If someone not on the roster was involved, add their role: "[Name], VP Sales (not on core team)."

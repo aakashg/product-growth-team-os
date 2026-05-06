@@ -9,6 +9,11 @@ Engineering plans, RFCs, and bug investigations. All organized by product area.
 | `plans/{area}/` | Implementation plans for upcoming features |
 | `rfcs/{area}/` | Technical design proposals and architectural decisions |
 | `bug-investigations/{area}/bug-{date}-{slug}/` | Dated investigation directories for production bugs |
+| `playbooks/` | Incident-response and recurring engineering playbooks (cross-area, flat) |
+
+## When You're Paged
+
+Read [`playbooks/incident-response.md`](playbooks/incident-response.md) — designed to be scannable in 30 seconds. It walks you through triage, prior-bug check via `bug-investigations/CLAUDE.md`, the data-catalog → schema → query path, mitigation, escalation criteria, and postmortem requirements.
 
 ## Product Areas
 
@@ -18,6 +23,8 @@ All three folders share the same product-area subfolders. The starter template s
 |--------------|-----------|-------------|
 | Billing | `billing/` | Subscription, payments, credit, refunds |
 | [Add yours] | `[area]/` | [Description] |
+
+> Adding a new product area mid-incident? See [Bootstrapping a New Product Area](../CLAUDE.md#bootstrapping-a-new-product-area) in `product-development/CLAUDE.md` for the full checklist.
 
 ## Naming Conventions
 

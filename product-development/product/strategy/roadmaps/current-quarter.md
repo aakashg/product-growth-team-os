@@ -1,5 +1,7 @@
 # Current Quarter Priorities — [Q_ 2026]
 
+> **For new hires reading this on Day 1:** if the priorities below are still bracketed placeholders, this team's roadmap hasn't been transcribed into the repo yet. Ask your manager for the current quarter's plan and offer to be the one to write it down — that's a high-leverage first PR.
+
 ## Top 3 Priorities
 
 1. **[Priority 1]** — [One sentence: what success looks like]

@@ -2,6 +2,8 @@
 
 Setup and orientation specific to analysts and data scientists.
 
+> Read [onboarding-general.md](onboarding-general.md) **first** — Day 1-5 reading list and warning about under-populated repos. This guide layers analytics-specifics on top.
+
 ## Setup
 
 See [General Onboarding](onboarding-general.md#setup) for shared tools.

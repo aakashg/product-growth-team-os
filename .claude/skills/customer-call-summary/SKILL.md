@@ -5,9 +5,38 @@ description: Process a customer call transcript or notes into a structured summa
 
 # Customer Call Summary
 
-Generate a structured summary of a customer call in the team's standard format. Consistent formatting across every team member makes cross-customer analysis trivial.
+Use this skill after every customer call. Pick a variant based on team size.
 
-**For the expected level of detail, see the example:** [examples/example-2026-01-27.md](examples/example-2026-01-27.md)
+> **Note:** anything in `{curly-braces}` is a placeholder — replace with your actual value (so `{customer}` → `acme-corp`, `{YYYY-MM-DD}` → `2026-04-28`).
+
+## Start Here: Quick Variant (most teams want this)
+
+If you have under ~10 active customers, **use the Quick variant**. Three sections, two minutes:
+
+```markdown
+# {Customer} — Call Summary {YYYY-MM-DD}
+
+**Attendees:** {Our names. Customer side: roles only}
+**Call type:** {Discovery / Check-in / Escalation / Renewal / Demo}
+
+## Executive Summary
+
+{2-3 paragraphs covering: status updates, what was discussed, key takeaways. Weave in 1-2 italicized verbatim quotes (role-attributed): *"quote" — Their VP of Eng*. Note any implied product gaps.}
+
+## Action Items
+
+- [Action] — Owner: {Name from team roster} — Due: {YYYY-MM-DD}
+
+## Relationship Signal
+
+{One sentence: healthy / at risk / expanding, with evidence.}
+```
+
+That's the whole thing. PII rule (no customer-side personal names) still applies. This is enough for a 3-person team with 5 customers and a 10-person team with 8 customers.
+
+**Save the file at:** `product-development/product/customers/accounts/{customer}/calls/summaries/{YYYY-MM-DD}.md` (replace `{customer}` with the customer slug like `acme-corp`, replace `{YYYY-MM-DD}` with the call date).
+
+If the customer folder doesn't exist, create it with a CLAUDE.md and an `account-context.md` (see `accounts/CLAUDE.md` for the template).
 
 ## When to Use
 
@@ -19,32 +48,38 @@ Provide ONE of:
 - A transcript file (from Granola, Otter, Zoom, Fireflies, etc.)
 - A voice dictation of your key takeaways
 - Paste the raw notes you took during the call
-- If you have NOTHING written: answer the prompts below and the skill will generate the summary
+- If you have NOTHING written: the skill will ask you 5 short questions and generate from the answers
 
-If no transcript is available, ask the user these questions:
+If no transcript is available, the skill asks:
 1. Who was on the call? (Customer name, attendees, roles)
 2. What's the one thing you most want to remember from this call?
 3. Were they happy, frustrated, or neutral overall?
 4. Did they ask for anything specific?
 5. Any competitors mentioned?
 
-Also provide:
-- Customer name
-- Attendees and their roles
-- Date of call
+Also: customer name, attendees and their roles, date of call.
 
-## Output Files
+## Two Output Files
 
-Save **two paired files**, mirroring Hannah's pattern:
+Save **two paired files**:
 
-- Summary: `product-development/product/customers/accounts/{customer}/calls/summaries/{YYYY-MM-DD}.md`
-- Transcript: `product-development/product/customers/accounts/{customer}/calls/transcripts/{YYYY-MM-DD}.md`
+- Summary: `accounts/{customer}/calls/summaries/{YYYY-MM-DD}.md`
+- Transcript: `accounts/{customer}/calls/transcripts/{YYYY-MM-DD}.md`
 
-If the customer folder doesn't exist, create it with a CLAUDE.md and an `account-context.md` (see `accounts/CLAUDE.md` for the template).
+**Switch to the Full variant** below when:
+- You have 10+ active customers and you're synthesizing across calls
+- Cross-customer pattern detection is the main payoff (e.g., "what are 5+ customers asking for that we don't ship?")
+- You're producing the bi-weekly customer-call-synthesis section in `workflows/bi-weekly-update/`
 
-## Summary Structure
+The Full variant has 7 sections (Executive Summary, Insights tables, Feature Requests tables, Next Steps, Follow-up Email, Slack Summary, Relationship Signal) and is what scales for a team like Hannah's.
 
-Every customer call summary should include these sections in order:
+---
+
+## Full Variant
+
+### Full Variant Structure
+
+Every Full-variant customer call summary should include these sections in order:
 
 ### 1. Executive Summary
 
@@ -63,6 +98,13 @@ Detailed overview that orients the reader and captures the key takeaways.
 **Opportunity Areas:** Paragraph or numbered list. Tie back to their workflows.
 
 **Strategy / Hypothesis Validation** *(when applicable):* When the call provides evidence that validates or invalidates a product hypothesis, add a dedicated section with quotes as evidence.
+
+**UX Findings** *(when applicable):* If the customer surfaced UX issues — confusing flows, missing affordances, unclear error states, friction in routine tasks — capture them as a dedicated subsection. Designers will filter on this when synthesizing across calls. Format:
+
+```markdown
+**UX Findings**
+- **[Surface / flow]:** [Specific friction observed or described]<br><br>*"[Quote if available]" — [Their role]*
+```
 
 **Key Product Gaps:** Bullet list. Actively identify *implied* gaps — things they're working around, doing manually, or switching tools for. Don't just capture explicit requests.
 
@@ -122,10 +164,10 @@ Draft a follow-up email to send to the customer:
 ```markdown
 ## Follow-up Email
 
-**To:** [Customer contact role]
+**To:** [Customer contact role] (first name allowed in salutation only — see PII rules below)
 **Subject:** [Meeting Topic] Recap + Action Items
 
-Hi [Name],
+Hi [first-name-or-"there"],
 
 Thanks for the great discussion today! Here's a quick recap:
 
@@ -199,6 +241,7 @@ This is our most important addition to Hannah's format:
 2. **Quotes:** attribute by role, not name — *"We are digging it." — Their VP of Eng*.
 3. **The transcript file may contain raw names** because it's a faithful record. The summary file (which gets shared and synthesized) must not.
 4. **No revenue figures, salary info, or PII** beyond role and company. Those live in the CRM, not here.
+5. **Outgoing-email exception.** The follow-up email is the one section where a customer-side first name is allowed — but only in the salutation line (`Hi Sam,`). Email body, subject, and `To:` field still follow role-only attribution. The salutation is the only line sent verbatim to the customer; everything else is read internally. If the first name is unknown, write `Hi there,` — never produce a literal `[Name]` placeholder.
 
 If you're tempted to write a name, write the role instead. If unsure of the role, write "Their attendee."
 

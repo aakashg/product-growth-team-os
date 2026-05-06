@@ -34,3 +34,7 @@ workflows/
 - You run the same multi-step process every N days/weeks
 - The output artifact has a recognizable shape (table, narrative, dashboard digest)
 - A teammate (or agent) could pick it up cold from the spec without you in the room
+
+## Authoring Guide
+
+See [how-to-author-a-new-workflow.md](how-to-author-a-new-workflow.md) for the full pattern: when a workflow is appropriate vs. a skill, the 6-step authoring process, step-file structure, anti-patterns to avoid, and naming conventions.

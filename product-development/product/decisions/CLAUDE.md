@@ -6,13 +6,13 @@ Use this folder for **non-architectural** decisions: pricing, GTM, scoping, prio
 
 ## How to Read
 
-For any "why did we choose X?" question, search this folder first. Files are named by date and topic: `{YYYY-MM-DD}-{topic}.md`.
+For any "why did we choose X?" question, search this folder first. Files are named by date and topic: `{YYYY-MM-DD}-{topic}.md`. Same-day decisions with overlapping topics use a 2-digit sequence suffix (`{YYYY-MM-DD}-{topic}-01.md`, `-02.md`).
 
 ## Recent Decisions
 
-- [2026-02-14-usage-based-pricing.md](2026-02-14-usage-based-pricing.md) — Chose tiered pricing with usage guardrails over per-seat and credit pools
+> Append new decisions to the **bottom** of this list (don't insert in the middle — that creates merge conflicts when two PMs file decisions on the same day). One bullet per line, one decision per bullet. Keep the list to the most recent ~10; older decisions are still searchable but don't need to be in the index.
 
-> Add new decisions here as they're made. Keep this list to the most recent ~10 — older decisions are still searchable but don't need to be in the index.
+- [2026-02-14-usage-based-pricing.md](2026-02-14-usage-based-pricing.md) — Chose tiered pricing with usage guardrails over per-seat and credit pools
 
 ## How to Add
 
