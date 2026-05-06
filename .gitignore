@@ -1,0 +1,30 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+.cursor/
+
+# Personal files that shouldn't be shared
+personal-*.md
+my-*.md
+
+# Large files
+*.pdf
+*.mp4
+*.wav
+*.zip
+
+# Deep dive (newsletter draft, not for public repo)
+team-os-deep-dive-v4.md
+
+# API keys and secrets (should NEVER be in this repo)
+.env
+*.key
+*.pem
+secrets/
