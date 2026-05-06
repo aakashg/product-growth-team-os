@@ -30,6 +30,7 @@ Revisit if: churn on any tier exceeds 5% for two consecutive months, or if compu
 
 ## Related
 
-- PRDs/pricing-v2-prd.md
-- analytics/billing/metrics.md
-- analytics/billing/queries/churn_by_segment.sql
+- `../PRDs/billing/pricing-v2-prd.md`
+- `../../analytics/metrics/billing/billing-metrics.md`
+- `../../analytics/queries/billing/churn_by_segment.sql`
+- `../../feature-index.yaml#billing.pricing-v2`

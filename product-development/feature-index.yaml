@@ -1,0 +1,53 @@
+# Feature Index
+#
+# Master lookup for every feature your team is building. Maps each feature to
+# all related artifacts so any teammate (or agent) can find what exists in one
+# read instead of grepping the repo.
+#
+# Pattern from Hannah Stulberg's open-source Team OS repo:
+# https://github.com/in-the-weeds-hannah-stulberg/team-os-example-repo
+#
+# Structure: product-area → sub-feature → all related artifacts
+#
+# Conventions
+# - Keep this file authoritative. Whenever a feature ships, the launch gate
+#   verifies its entry here.
+# - Paths are relative to product-development/.
+# - tickets references your tracker (Linear / Jira / Asana). Pick one format.
+# - Omit keys that don't apply yet. Add them when artifacts exist.
+
+# Replace these examples with your own product areas. Keep one or two as a
+# template for new entries.
+
+billing:
+  example-feature-name:
+    prd: product/PRDs/billing/example-feature-prd.md
+    eng-rfc: engineering/rfcs/billing/example-feature-rfc.md
+    eng-plan: engineering/plans/billing/example-feature.md
+    data-eng-rfc: data-engineering/rfcs/billing/example-pipeline-rfc.md
+    data-eng-plan: data-engineering/plans/billing/example-pipeline.md
+    figma: https://figma.com/file/your-figma-file
+    tickets:
+      - YOURPROJ/123
+      - YOURPROJ/124
+    table-schemas:
+      - analytics/schemas/billing/example_table.md
+    queries:
+      - analytics/queries/billing/example-query.sql
+    dashboards: analytics/dashboards/billing/example-dashboards.md
+    experiments:
+      - analytics/experiments/billing/example-experiment-results.md
+    investigations:
+      - analytics/investigations/billing/YYYY-MM-DD-example-investigation.md
+    bug-investigations:
+      - engineering/bug-investigations/billing/bug-MM-DD-YYYY-example/investigation-plan.md
+
+# Add more product areas here. Common starting set:
+# onboarding:
+#   ...
+# core-product:
+#   ...
+# growth:
+#   ...
+# enterprise:
+#   ...

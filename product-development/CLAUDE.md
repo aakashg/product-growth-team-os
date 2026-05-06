@@ -1,25 +1,25 @@
 # Product Development
 
+All product development artifacts — product, engineering, data engineering, analytics, design.
+
 ## Doc Index
 
-- product/ — All product context: PRDs, strategy, customers, competitive intel, decisions
-  - product/CLAUDE.md — Navigate product subdirectories
-  - product/customers/ — Customer accounts, call summaries, relationship context
-  - product/competitive-research/ — Competitor analyses and market positioning
-  - product/PRDs/ — Product requirement documents (current and historical)
-  - product/strategy/ — Strategic plans, vision docs, quarterly priorities
-  - product/decisions/ — Decision log entries with reasoning and tradeoffs
-  - product/launch-emails/ — Launch communications archive
-  - product/workflows/ — Recurring process documentation
+**Check `feature-index.yaml` first** when looking up artifacts for a specific feature. It maps every feature to all related artifacts in one place.
 
-- analytics/ — Metrics definitions, SQL queries, table schemas, investigation playbooks
-  - analytics/CLAUDE.md — Navigate analytics by product area
-  - analytics/[product-area]/metrics.md — Metric definitions ONLY (read this first)
-  - analytics/[product-area]/queries/ — Verified SQL queries
-  - analytics/[product-area]/schemas/ — Table and data schemas
-  - analytics/[product-area]/playbooks/ — Verified investigation methodologies
+| Path | Description |
+|------|-------------|
+| `feature-index.yaml` | Master feature index — feature → PRD, RFC, plan, schema, dashboard, experiments, tickets |
+| `analytics/data-catalog.yaml` | Warehouse table registry — owner, refresh, upstream, used-by |
+| [product/CLAUDE.md](product/CLAUDE.md) | PRDs, strategy, customers, competitive research, decisions, meetings, workflows |
+| [engineering/CLAUDE.md](engineering/CLAUDE.md) | Engineering plans, RFCs, bug investigations — organized by product area |
+| [data-engineering/CLAUDE.md](data-engineering/CLAUDE.md) | Data pipeline plans and RFCs — organized by product area |
+| [analytics/CLAUDE.md](analytics/CLAUDE.md) | Metrics, queries, schemas, dashboards, experiments, investigations, playbooks |
+| [design/CLAUDE.md](design/CLAUDE.md) | Design rationale (artifacts live in Figma, linked from feature-index) |
 
-- engineering/ — Bug investigations, RFCs, technical designs
-  - engineering/CLAUDE.md — Navigate engineering docs
-  - engineering/bugs/ — Bug investigation history with root cause analysis
-  - engineering/rfcs/ — Technical design documents and architecture decisions
+## Product Areas
+
+This repo organizes most artifacts (PRDs, plans, RFCs, queries, metrics, schemas, dashboards, experiments, investigations, bug investigations) into **product-area subfolders**. Pick a consistent set of areas and use them everywhere — same folder names across `product/PRDs/`, `engineering/plans/`, `analytics/metrics/`, etc.
+
+The starter template uses `billing/` as a worked example. Replace with your team's product areas.
+
+> Tip: Hannah's repo uses 5 areas (`billing`, `home-page`, `prototyping`, `starter-templates`, `deployment`). Most teams need 4-7. Fewer than 3 means you don't need subfoldering yet; more than 8 usually means some should merge.

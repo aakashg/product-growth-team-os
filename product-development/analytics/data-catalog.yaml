@@ -1,0 +1,50 @@
+# Data Catalog
+#
+# Registry of warehouse tables your team queries. Lets analysts and AI agents
+# find the right table without reading every schema doc. For column-level
+# detail, see analytics/schemas/{area}/.
+#
+# Pattern from Hannah Stulberg's open-source Team OS repo.
+#
+# Conventions
+# - One entry per table you query regularly. Skip ephemeral or staging tables.
+# - owner is a team or person from the team roster.
+# - refresh: daily | hourly | streaming (Snowpipe / Kafka) | manual.
+# - upstream: where the data originates (e.g. "Stripe → Fivetran").
+# - used_by: list of analyses or dashboards that depend on this table.
+# - schema_doc points to the full column-level doc when one exists.
+
+tables:
+
+  # --- Replace these examples with your own. Keep two or three as templates. ---
+
+  users:
+    database: ANALYTICS
+    schema: PROD
+    description: User accounts — signups, profiles, auth metadata
+    owner: data-engineering
+    refresh: daily
+    upstream: Auth service → Fivetran
+    used_by: [retention, activation, funnel analysis]
+
+  organizations:
+    database: ANALYTICS
+    schema: PROD
+    description: Organization accounts — team structure, plan tier, billing info
+    owner: data-engineering
+    refresh: daily
+    upstream: Billing service → Fivetran
+    used_by: [revenue reporting, account health, seat analysis]
+
+  billing_events:
+    database: ANALYTICS
+    schema: PROD
+    description: Billing event log — subscriptions, charges, refunds, churn signals
+    owner: data-engineering
+    refresh: daily
+    upstream: Stripe → Fivetran
+    used_by: [revenue, churn, expansion]
+    schema_doc: schemas/billing/billing_events.md
+
+# Add more tables as your team registers them. Common starting set:
+#   feature_events, deploys, sessions, experiments_assignments, ...

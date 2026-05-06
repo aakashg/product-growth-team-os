@@ -1,31 +1,69 @@
 # Product
 
-## Doc Index
+Product context, customer insights, strategy, decisions, PRDs, and supporting collateral.
 
-- customers/CLAUDE.md — Customer account index. Start here for any customer query.
-- competitive-research/ — Competitor analyses. Organized by competitor name.
-- PRDs/ — Product requirement documents. Named by feature and date.
-- strategy/ — Strategic plans and vision documents. Organized by quarter.
-- decisions/ — Decision log. Each file is one decision with full reasoning. **Read this folder for any "why did we choose X" question.**
-- launch-emails/ — Launch communications archive.
-- workflows/ — Recurring process docs (sprint rituals, review cadences).
+## Folder Structure
+
+```
+product/
+├── PRDs/                  # PRDs by product area
+├── strategy/              # roadmaps, vision, business-context
+├── customers/             # accounts/{customer}/ — context, calls, transcripts
+├── competitive-research/  # competitor matrix + per-competitor folders
+├── decisions/             # non-architectural decisions with reasoning
+├── meetings/              # standup, sprint-planning, team-bi-weekly — docs/transcripts/summaries
+├── workflows/             # multi-step workflow specs (e.g. bi-weekly-update)
+├── launch-emails/         # customer-facing launch communications
+├── sales-enablement/      # sales-facing docs, pitch decks, onboarding flows
+├── processes/             # operational processes and checklists
+└── product-context/       # reference docs for your product's systems
+```
+
+Each folder has its own CLAUDE.md. Architectural docs live in `engineering/` and `data-engineering/` (siblings of `product/`).
 
 ## Key Context
 
-[Your Product] is [one-sentence description]. Primary user persona is [who]. Key differentiator is [what].
+Replace these placeholders during initial setup:
 
-Current quarter priorities:
+- **Product:** [Your Product] — [one-sentence description]
+- **North Star:** [what your team is optimizing for]
+- **Primary persona:** [who you're building for]
+- **Key differentiator:** [why customers choose you]
+
+## Current Quarter Priorities
+
 1. [Priority 1]
 2. [Priority 2]
 3. [Priority 3]
 
+Pull these from [`strategy/roadmaps/current-quarter.md`](strategy/roadmaps/current-quarter.md).
+
+## Key Documents
+
+| Purpose | Path |
+|---------|------|
+| Roadmap | `strategy/roadmaps/current-quarter.md` |
+| Vision | `strategy/vision/` |
+| Business context | `strategy/business-context/` |
+| Competitive matrix | `competitive-research/competitors/competitive-matrix.md` |
+| Customer accounts | `customers/CLAUDE.md` |
+| PRDs | `PRDs/` (organized by product area) |
+| Decisions | `decisions/CLAUDE.md` |
+
+## Terminology
+
+Replace this table with your team's product terminology so Claude uses your team's vocabulary in summaries:
+
+| Term | Definition |
+|------|------------|
+| [Term] | [Definition] |
+| [Term] | [Definition] |
+
 ## Where Design Artifacts Live
 
-Design doesn't have a separate top-level folder. Design work lives alongside the product context it relates to:
+Source-of-truth design files live in **Figma**, linked from `feature-index.yaml` under each feature. This repo holds:
 
-- **User research findings** → customers/[customer-name]/summaries/ (use the UX Issues field in customer call summaries)
-- **Design decisions** → decisions/ (use /decision-log-entry for significant design choices like "chose bottom nav over hamburger menu")
-- **Design specs and briefs** → PRDs/ (alongside the PRD they relate to, or as standalone design spec files)
-- **Competitive design teardowns** → competitive-research/
-
-If your team produces enough design artifacts to justify a dedicated folder, create product/design/ and add a CLAUDE.md navigation file.
+- **Per-feature design rationale** → in the PRD or as a decision log entry
+- **Per-customer UX findings** → in `customers/accounts/{customer}/account-context.md` or call summaries
+- **Cross-cutting design decisions** → `decisions/`
+- **Design system rationale** → `../design/CLAUDE.md` (sibling of product/)

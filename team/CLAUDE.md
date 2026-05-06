@@ -1,8 +1,24 @@
 # Team
 
-## Doc Index
+Team resources, onboarding guides, and retrospectives.
 
-- onboarding/ — Guides for new team members
-  - onboarding/new-member-guide.md — Start here if you're new. Full walkthrough of the Team OS.
-  - onboarding/github-101.md — Git basics for non-technical team members.
-- retros/ — Sprint retrospective summaries. Named by date.
+## Folders
+
+| Folder | What's Here |
+|--------|-------------|
+| `onboarding-guides/` | Role-specific onboarding for new team members |
+| `retros/` | Team retrospective summaries — named by date |
+| `adoption-playbook.md` | Slack pitch, demo script, weekly rituals, multi-team rollout |
+
+## Onboarding Guides
+
+| Guide | For |
+|-------|-----|
+| [onboarding-general.md](onboarding-guides/onboarding-general.md) | All new hires — shared tools, repos, channels, first tasks, FAQ |
+| [onboarding-product.md](onboarding-guides/onboarding-product.md) | Product managers |
+| [onboarding-engineering.md](onboarding-guides/onboarding-engineering.md) | Engineers |
+| [onboarding-design.md](onboarding-guides/onboarding-design.md) | Designers |
+| [onboarding-analytics.md](onboarding-guides/onboarding-analytics.md) | Analysts and data scientists |
+| [onboarding-data-engineering.md](onboarding-guides/onboarding-data-engineering.md) | Data engineers |
+| [onboarding-strategy-ops.md](onboarding-guides/onboarding-strategy-ops.md) | Non-technical contributors (strategy, ops, sales, CX) |
+| [github-101.md](onboarding-guides/github-101.md) | Git basics for anyone new to git/GitHub |
