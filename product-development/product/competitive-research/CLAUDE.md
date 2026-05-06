@@ -4,12 +4,12 @@ Competitor intel, feature comparisons, and market positioning.
 
 ## Competitors
 
-Replace this with your actual competitors. Add a folder per competitor.
+Replace this with your actual competitors. Add a folder per competitor following the [example-competitor/](competitors/example-competitor/CLAUDE.md) template.
 
 | Competitor | Website | Focus | Segment | Teardown |
 |-----------|---------|-------|---------|----------|
-| [Competitor A] | [domain] | [Their focus] | [Segment] | [competitors/competitor-a/](competitors/competitor-a/CLAUDE.md) |
-| [Competitor B] | [domain] | [Their focus] | [Segment] | [competitors/competitor-b/](competitors/competitor-b/CLAUDE.md) |
+| Example Competitor (template) | [domain] | [Their focus] | SMB-Mid | [competitors/example-competitor/](competitors/example-competitor/CLAUDE.md) |
+| [Add yours] | [domain] | [Their focus] | [Segment] | [competitors/{slug}/](competitors/example-competitor/CLAUDE.md) |
 
 ## Per-Competitor Folder Layout
 
