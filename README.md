@@ -123,6 +123,12 @@ The architecture is tool-agnostic. Examples use Claude Code, but the structure w
 - **OpenAI Codex** (`AGENTS.md` at the same root level as `CLAUDE.md`)
 - **Any tool that reads markdown files in a repo**
 
+## Contributing
+
+Contributions welcome — bug fixes, structural improvements, new patterns. See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+For security or privacy issues, see [SECURITY.md](SECURITY.md).
+
 ## Portability (If You Switch AI Vendors)
 
 **The repo is plain markdown and YAML in folders.** Nothing about the team's institutional knowledge depends on Anthropic, Claude, or any specific harness. If you switch from Claude Code to Cursor, OpenAI Codex, GitHub Copilot, or a future entrant: the only file that needs renaming is `CLAUDE.md` → the new tool's equivalent (`AGENTS.md`, `.cursor/...`, `.github/copilot-instructions.md`). The skills convert in an afternoon — the SKILL.md folder pattern is the cross-tool standard. Your decisions, customer summaries, metrics, schemas, and PRDs survive untouched.

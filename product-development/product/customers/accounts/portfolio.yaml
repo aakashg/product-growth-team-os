@@ -13,17 +13,30 @@
 # - last_call: YYYY-MM-DD of the most recent call (matches the latest file
 #   in `accounts/{slug}/calls/summaries/`). The /customer-call command
 #   updates this automatically.
+# - last_executive_touch: YYYY-MM-DD when an exec from our side last engaged
+#   directly with this account. Useful for at-risk accounts.
 # - next_milestone: the next dated thing on the calendar — renewal,
 #   demo, board review. Drives prioritization.
+# - renewal_date: YYYY-MM-DD of the contract renewal
+# - renewal_stage: not-yet | forecast | commit | at-risk | won | lost
+# - champion_status: active | shifting | departed | unknown
 # - expansion_signal: short phrase if expansion is active (e.g. "Asked for
 #   pricing on Enterprise tier 2026-04-22"). Empty otherwise.
+# - expansion_stage (if any): discovery | proposal | negotiation | closed
 # - risks: list of one-line risks. Each maps to a section in
 #   account-context.md if more depth needed.
 # - feature_requests: list of feature-index keys this account is waiting on
-# - account_owner: name from team roster
+# - account_owner: name from team roster (current)
+# - previous_owner: name (optional) — if account was recently transitioned,
+#   the prior owner. Cleared after 90 days.
+# - transition_date: YYYY-MM-DD when the account changed hands. Cleared
+#   after 90 days.
+# - intro_status: complete | pending | not-needed — for transitioned
+#   accounts, has the successor been warmly introduced to the customer?
 #
 # Used by: /portfolio-pulse skill, CPO morning ritual, /weekly-synthesis exec
-# mode, the bi-weekly workflow's customer synthesis step.
+# mode, the bi-weekly workflow's customer synthesis step, the
+# /workflows/renewal-review weekly CSM ritual.
 
 accounts:
 
@@ -37,10 +50,14 @@ accounts:
     status: expanding
     health_score: 4
     last_call: 2026-04-22
+    last_executive_touch: 2026-04-22
     next_milestone:
       type: pilot-procurement-demo
       date: 2026-05-05
     renewal_date: 2026-12-15
+    renewal_stage: forecast
+    champion_status: active
+    expansion_stage: proposal
     arr_band: 100k-250k
     expansion_signal: "Validated credit-dashboard hypothesis; staged procurement demo"
     risks:
@@ -48,4 +65,7 @@ accounts:
     feature_requests:
       - feature-index.yaml#billing.credit-usage-dashboard
     account_owner: hannah
+    # previous_owner: alex     # uncomment if recently transitioned
+    # transition_date: 2026-04-15
+    # intro_status: complete
     last_updated: 2026-04-28

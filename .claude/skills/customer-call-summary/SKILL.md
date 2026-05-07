@@ -9,6 +9,23 @@ Use this skill after every customer call. Pick a variant based on team size.
 
 > **Note:** anything in `{curly-braces}` is a placeholder — replace with your actual value (so `{customer}` → `acme-corp`, `{YYYY-MM-DD}` → `2026-04-28`).
 
+## Renewal / QBR Calls — Add These Fields
+
+If the call is a renewal conversation, QBR, or expansion-stage call, capture these structured fields in addition to the standard sections (works in both Quick and Full variants). They feed `portfolio.yaml` and the renewal-review workflow:
+
+```markdown
+## Renewal / Expansion State
+
+- **Renewal stage:** not-yet | forecast | commit | at-risk | won | lost
+- **Champion status:** active | shifting | departed | unknown
+- **Expansion stage (if any):** discovery | proposal | negotiation | closed
+- **Last executive touch:** {YYYY-MM-DD or "needed within {days}"}
+- **Renewal blockers:** {bulleted}
+- **Forecast confidence:** low | medium | high (one-line reason)
+```
+
+After saving the summary, update `portfolio.yaml#{customer}` to match — this is the source of truth that feeds the renewal-review and portfolio-pulse skills. CSMs running the weekly review depend on this being current.
+
 ## Start Here: Quick Variant (most teams want this)
 
 If you have under ~10 active customers, **use the Quick variant**. Three sections, two minutes:
@@ -242,6 +259,8 @@ This is our most important addition to Hannah's format:
 3. **The transcript file may contain raw names** because it's a faithful record. The summary file (which gets shared and synthesized) must not.
 4. **No revenue figures, salary info, or PII** beyond role and company. Those live in the CRM, not here.
 5. **Outgoing-email exception.** The follow-up email is the one section where a customer-side first name is allowed — but only in the salutation line (`Hi Sam,`). Email body, subject, and `To:` field still follow role-only attribution. The salutation is the only line sent verbatim to the customer; everything else is read internally. If the first name is unknown, write `Hi there,` — never produce a literal `[Name]` placeholder.
+6. **GDPR special-category coverage (Article 9).** The role-only rule covers names. Equally important: do **not** include any GDPR Article 9 special categories in either the summary OR the transcript file — health information, racial or ethnic origin, religious or philosophical beliefs, political opinions, trade-union membership, biometric or genetic data, sexual orientation. These categories sometimes surface in calls (an accessibility complaint reveals disability; team-conflict context can reveal protected categories). Strip from both files. If the conversation depended on a special-category fact, write a meta-note like *"Their team raised an accessibility consideration — see private CSM notes outside repo."* and keep the substance out of the repo.
+7. **Permissioned-quote path for sales/marketing.** When a customer signs explicit permission to use their name and quote externally, the named quote belongs in `customers/case-studies/quotes/{customer-slug}.md` with a `permissions.yaml` entry tracking what was approved and through what date. The summary file in `accounts/{customer}/calls/summaries/` continues to use role-only attribution — `case-studies/` is the explicit opt-in surface for external use.
 
 If you're tempted to write a name, write the role instead. If unsure of the role, write "Their attendee."
 
