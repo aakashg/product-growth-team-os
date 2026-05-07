@@ -23,6 +23,9 @@ my-*.md
 *.wav
 *.zip
 
+# Allow shipped PDF deliverables (downloadables referenced from the deep dive)
+!team/compliance/*.pdf
+
 # Newsletter drafts and Notion exports (not for public repo)
 team-os-deep-dive-v4.md
 notion-team-claude-md-template.md
