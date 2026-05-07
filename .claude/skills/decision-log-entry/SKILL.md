@@ -96,7 +96,7 @@ Decisions get a `## Hindsight` section appended over time as the team learns whe
 - 2026-08-01 (6 months in, outgoing PM): Watched the cost ratio settle at 18x, not the 22x we modeled. Tier B's pricing should be re-tuned. Successor should review.
 ```
 
-Run the `/pm-handoff` workflow before a PM departure — it sweeps recent decisions and prompts hindsight notes.
+Run the `pm-handoff` workflow at `product/workflows/pm-handoff/` before a PM departure — it sweeps recent decisions and prompts hindsight notes.
 
 ## Same-Day Decisions
 

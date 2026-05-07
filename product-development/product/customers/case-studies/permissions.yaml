@@ -1,0 +1,47 @@
+# Case Study Permissions Registry
+#
+# Tracks which customers have signed external-use permissions for their name,
+# title, logo, and quotes. The strict PII rule in customer-call-summary
+# prevents customer-side names from appearing in internal summaries — this
+# file is the explicit opt-in surface for sales decks, landing pages, blog
+# posts, and case studies.
+#
+# Conventions
+# - One entry per permissioned customer, keyed on the same slug used in
+#   accounts/{slug}/.
+# - permission_form_signed: YYYY-MM-DD when the legal opt-in was returned.
+# - permission_expires: typically signed + 12 months. Re-confirm before each
+#   major use.
+# - approved_uses: explicit list. If a use isn't here, you don't have it.
+# - approved_quotes: only quotes the spokesperson signed off on. Sourced from
+#   a specific call summary or a case-study interview.
+# - do_not_use: facts that are publishable in the case study but NOT for
+#   marketing extracts (e.g. revenue figures, team size).
+# - last_reconfirmed: refresh date — informal email check confirming the
+#   permission still holds. Annual minimum, before major reuse.
+
+customers:
+
+  # --- Replace this with your real permissioned customers. ---
+
+  example-customer:
+    spokesperson:
+      name: Sam Lee   # NAMED with permission — case-studies/ is the explicit opt-in surface
+      title: VP Engineering
+      email: sam@example.com   # for re-confirmation; never appears in published material
+    permission_form_signed: 2026-04-28
+    permission_expires: 2027-04-28   # annual re-confirmation cycle
+    approved_uses:
+      - logo_on_website
+      - case_study_publication
+      - quote_in_sales_deck
+      - quote_in_blog_post
+    approved_quotes:
+      - text: "We shipped 3x faster after switching."
+        source: accounts/example-customer/calls/summaries/2026-04-22.md
+      - text: "The audit logging alone justified the migration."
+        source: case-study interview, 2026-04-25
+    do_not_use:
+      - revenue_figures
+      - team_size_under_50
+    last_reconfirmed: 2026-04-28

@@ -29,7 +29,7 @@ See [General Onboarding](onboarding-general.md#setup) for shared tools.
 ## Skills You'll Use
 
 - `/customer-call --quick` — summary discovery / sales calls; auto-tags feature requests
-- `/battlecard-update` — when you lose to a competitor or learn new intel
+- Battlecard updates are a manual edit at `sales-enablement/battlecards/{competitor}.md` — bump the **Last updated** date and amend per the latest deal intel
 - Win-loss entry after every deal outcome
 
 ## First Tasks

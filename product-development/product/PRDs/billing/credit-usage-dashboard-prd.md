@@ -22,7 +22,7 @@ If we surface credit balance, monthly burn rate, and projected runway in the pro
 
 ## Problem
 
-Across our top 10 paying accounts, 4 of last month's 7 churns were preceded by a "ran out of credits mid-workflow" complaint in support tickets. Pulled from the [investigation](../../analytics/investigations/billing/2026-03-10-credit-depletion-churn-analysis.md): 47% of February churners had a credit-depletion event in the trailing 14 days, of which 71% had received no in-product alert (we don't ship them yet).
+Across our top 10 paying accounts, 4 of last month's 7 churns were preceded by a "ran out of credits mid-workflow" complaint in support tickets. Pulled from the [investigation](../../../analytics/investigations/billing/2026-03-10-credit-depletion-churn-analysis.md): 47% of February churners had a credit-depletion event in the trailing 14 days, of which 71% had received no in-product alert (we don't ship them yet).
 
 The data is consistent with what CSMs hear in renewal calls: customers don't mind paying — they mind not knowing what they'll be billed.
 
@@ -54,7 +54,7 @@ Updates hourly via the new `credit_usage_hourly` materialized view (see [data-en
 - 80% threshold: heads-up email, no urgency
 - 95% threshold: action-required email with one-click upgrade
 
-Subject lines and copy are pre-tested in the [low-balance experiment](../../analytics/experiments/billing/low-balance-warning-2026-03-05-experiment-design.md) — 80% threshold confirmed at p < 0.05 to reduce churn 33%.
+Subject lines and copy are pre-tested in the [low-balance experiment](../../../analytics/experiments/billing/low-balance-warning-2026-03-05-experiment-design.md) — 80% threshold confirmed at p < 0.05 to reduce churn 33%.
 
 ### 3. Admin breakdown (P1, ships 2026-05-09)
 
@@ -89,8 +89,8 @@ Team plan admins get a per-user usage table — who's burning the most, who's id
 
 | Metric | Definition (canonical query) | Baseline | Target |
 |--------|------------------------------|----------|--------|
-| Involuntary churn (30d post-GA) | [`metrics/billing/billing-metrics.md#churn-rate`](../../analytics/metrics/billing/billing-metrics.md) filtered to `cancellation_reason = 'payment_failed'` | 2.1% | -30% relative (≤ 1.5% absolute) |
-| Tier-up conversions (30d) | [`queries/billing/tier_up_conversion.sql`](../../analytics/queries/billing/) | 4.1% | +15% relative |
+| Involuntary churn (30d post-GA) | [`metrics/billing/billing-metrics.md#churn-rate`](../../../analytics/metrics/billing/billing-metrics.md) filtered to `cancellation_reason = 'payment_failed'` | 2.1% | -30% relative (≤ 1.5% absolute) |
+| Tier-up conversions (30d) | `queries/billing/tier_up_conversion.sql` (to be added) | 4.1% | +15% relative |
 | Dashboard adoption (% paying users seeing it weekly) | New metric, tracked via product analytics | 0% | ≥ 80% in 60 days |
 
 ### Guardrails

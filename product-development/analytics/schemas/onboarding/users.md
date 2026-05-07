@@ -4,13 +4,16 @@
 
 | | |
 |---|---|
+| **Source** | [Your data warehouse — Snowflake/BigQuery/etc.] |
 | **Database / schema** | ANALYTICS.PROD |
-| **Owner** | data-engineering |
 | **Refresh** | daily |
+| **Typical lag** | < 24h (overnight Fivetran sync) |
+| **Volume** | ~2M total |
 | **Upstream** | Auth service → Fivetran |
 | **Grain** | one row per user |
 | **Partition key** | signup_date |
 | **PII** | yes — email, full name, IP at signup |
+| **Owner** | data-engineering |
 
 ## Columns
 

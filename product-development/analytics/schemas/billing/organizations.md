@@ -4,13 +4,16 @@
 
 | | |
 |---|---|
+| **Source** | [Your data warehouse — Snowflake/BigQuery/etc.] |
 | **Database / schema** | ANALYTICS.PROD |
-| **Owner** | data-engineering |
 | **Refresh** | daily |
+| **Typical lag** | < 24h (overnight Fivetran sync) |
+| **Volume** | ~80K total |
 | **Upstream** | Billing service → Fivetran |
 | **Grain** | one row per organization |
 | **Partition key** | created_at |
 | **PII** | no |
+| **Owner** | data-engineering |
 
 ## Columns
 

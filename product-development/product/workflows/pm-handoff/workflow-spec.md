@@ -100,4 +100,4 @@ The outgoing PM's last day is contingent (per team norms) on:
 
 - **Account ownership re-concentration risk**: don't transition all 8 accounts to one CSM/PM. Distribute.
 - **Decision hindsight bias**: outgoing PMs sometimes minimize their misses. Manager should review.
-- **Departure-driven escalations**: customers sometimes use PM departure as renewal-renegotiation leverage. Brief the successor on which accounts are likely to use this.
+- **Departure-driven escalations**: customers sometimes use PM departure as a renewal-renegotiation pressure point. Brief the successor on which accounts are likely to try this.
