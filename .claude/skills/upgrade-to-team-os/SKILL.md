@@ -586,31 +586,39 @@ Run `find {source} -type f -exec md5 {} \;` and compare with the snapshot taken 
 
 ### 7.5.6 Idempotency Manifest Write
 
-After all gates pass, write `{output}/.claude/upgrade-state.json`:
+After all gates pass, write `{output}/.claude/upgrade-state.json`. **The manifest is itself subject to Step 7.5.1 PII grep** — if any owner identifier or PII pattern leaks into the manifest, the gate fails. Therefore: describe **categories** and **counts**, never echo values.
 
 ```json
 {
-  "skill_version": "2.0",
-  "source_path": "/Users/devon/Downloads/pm-os",
+  "skill_version": "2.1",
+  "source_path_hash": "sha256:...",
   "source_snapshot_hash": "sha256:...",
   "run_at": "2026-05-07T14:23:00Z",
   "mode": "full-scaffold",
   "locale": "english",
   "detected_roles": ["PM"],
-  "owner": {"name": "Devon", "email": "..."},
+  "owner_id_hash": "sha256:...",
   "classifications": {
     "shared_count": 17,
     "private_count": 10,
     "review_resolved": 6,
     "skipped_skills": 1,
-    "collisions": 2
+    "collisions": 2,
+    "private_categories": ["personal-context", "1on1s", "comp", "voice"]
   },
   "sanitization_rules_applied": ["pronoun-pass", "anecdote-extraction", "company-anonymization"],
-  "mapping": {/* locale mapping from 0.2 if non-english */}
+  "gates_passed": ["pii-grep", "pronoun-grep", "claude-md-coverage", "canonical-must-exist", "preservation"],
+  "mapping_ref": ".claude/upgrade-mapping.json"
 }
 ```
 
-This makes re-runs idempotent: next run reads the manifest, hashes the source again, and only acts on diffs.
+**Manifest rules:**
+- `source_path` and `owner` are hashed (sha256), never clear-text — the manifest is committed to git in the team OS, so it must be safe for any teammate to read.
+- `private_files_kept_personal` is recorded as **categories only** (`["1on1s", "comp", "personal-context"]`), never as filenames or excerpts (those would echo the very content being protected).
+- The locale mapping from Step 0.2 lives in a separate sidecar at `.claude/upgrade-mapping.json` (referenced by `mapping_ref`); the sidecar is also subject to PII grep.
+- A clear-text owner→hash lookup, if needed for re-run debugging, lives in a `.claude/upgrade-state.local.json` file that is **gitignored** by default — the skill auto-adds it to `{output}/.gitignore`.
+
+This makes re-runs idempotent: next run reads the manifest, re-hashes the source, and only acts on diffs.
 
 ---
 
