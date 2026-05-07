@@ -55,6 +55,16 @@ billing:
     decisions:
       - product/decisions/2026-02-14-usage-based-pricing.md
 
+  tier-discount-promo:
+    # Launching 2026-05-13. Analyst-side artifacts present; PRD + eng plan
+    # owned by PM/Eng leads — flagged in /feature-launch-gate output.
+    table-schemas:
+      - analytics/schemas/billing/promo_offers.md
+    queries:
+      - analytics/queries/billing/promo_conversion_rate.sql
+    metrics:
+      - analytics/metrics/billing/tier-discount-promo-metrics.md
+
 # Add more product areas here. Common starting set:
 # onboarding:
 #   first-run-experience:

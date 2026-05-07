@@ -103,5 +103,23 @@ tables:
       - feature-index.yaml#billing.credit-usage-dashboard
     schema_doc: schemas/billing/subscriptions.md
 
+  promo_offers:
+    database: ANALYTICS
+    schema: PROD
+    description: Tier-discount-promo offer lifecycle events — shown / redeemed / expired / dismissed
+    owner: data-engineering
+    refresh: streaming (Snowpipe)
+    upstream: Billing service → Snowpipe
+    grain: one row per promo offer event
+    row_count_estimate: ~50K/day projected at launch (no backfill, earliest data 2026-05-13)
+    pii: false
+    partition_key: offer_shown_at
+    last_validated: 2026-05-06
+    used_by:
+      - queries/billing/promo_conversion_rate.sql
+      - metrics/billing/tier-discount-promo-metrics.md
+      - feature-index.yaml#billing.tier-discount-promo
+    schema_doc: schemas/billing/promo_offers.md
+
 # Add more tables as your team registers them. Common starting set:
 #   feature_events, deploys, sessions, experiments_assignments, ...
