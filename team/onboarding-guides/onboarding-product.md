@@ -46,6 +46,35 @@ See [General Onboarding](onboarding-general.md#setup).
 - [ ] Run `/customer-call` for the first call you own
 - [ ] Pick up a small task from the current sprint
 
+## First 90 Days (Junior PM Track)
+
+If this is your first PM role, the Day 1-5 reading list extends into a 90-day arc. Each week's milestone builds on the previous.
+
+| Window | Milestone |
+|--------|-----------|
+| Week 1 | Day 1-5 reading list completed; one tiny PR landed (typo fix or one bracket filled in) |
+| Week 2 | Shadow your first customer call. Run `/customer-call --quick` on it. Read 3 most recent decisions deeply (read the Reasoning twice). |
+| Week 3 | Lead a customer call (with someone watching). Log a decision after a meeting you sat in on. |
+| Week 4-6 | Draft your first PRD on a small feature. Use [credit-usage-dashboard-prd.md](../../product-development/product/PRDs/billing/credit-usage-dashboard-prd.md) as the model. Get reviewed by your manager + eng lead. |
+| Week 7-8 | Shadow a feature launch end-to-end (PRD → RFC → ship → launch email → metrics). Run `/feature-launch-gate` on it before ship. |
+| Week 9-12 | Own a small feature launch start to finish. PRD, decisions, launch coordination, metrics check, retro. |
+
+Confidence builders along the way:
+
+- Your first decision log entry: write it, get feedback, iterate. Two minutes of writing saved your team 25 minutes the next time someone asks. That's the unit of value you produce.
+- Your first PRD: it will be too thin or too thick. That's normal. The first 5 PRDs are calibration; by PRD #10 it's muscle memory.
+- Your first launch: something will go wrong. The launch-gate catches most things; postmortems catch the rest. The repo doesn't punish first-time mistakes — it captures them so the next person doesn't repeat them.
+
+## What "Good" Looks Like for Each Artifact
+
+When in doubt, study these examples — they're shipped with the starter as teaching artifacts:
+
+- **PRD:** [`PRDs/billing/credit-usage-dashboard-prd.md`](../../product-development/product/PRDs/billing/credit-usage-dashboard-prd.md) — has Hypothesis, Problem, Strategic Fit, Solution, Metrics, Non-goals, with cross-references that resolve
+- **Decision log (full):** [`decisions/2026-02-14-usage-based-pricing.md`](../../product-development/product/decisions/2026-02-14-usage-based-pricing.md) — three options compared, reasoning explicit, tradeoff named, revisit conditions specific
+- **Customer call summary (Quick):** [`accounts/example-customer/calls/summaries/2026-04-22.md`](../../product-development/product/customers/accounts/example-customer/calls/summaries/2026-04-22.md) — three sections, role-attributed quotes, action items with named owners
+- **Engineering plan:** [`engineering/plans/billing/credit-usage-dashboard.md`](../../product-development/engineering/plans/billing/credit-usage-dashboard.md) — workstreams, sequencing, risks
+- **Bug investigation:** [`engineering/bug-investigations/billing/bug-03-12-2026-credit-double-charge/investigation-plan.md`](../../product-development/engineering/bug-investigations/billing/bug-03-12-2026-credit-double-charge/investigation-plan.md) — symptoms, timestamped steps, root cause, fix, prevention
+
 ## Where Your Work Lives
 
 | Artifact | Location |

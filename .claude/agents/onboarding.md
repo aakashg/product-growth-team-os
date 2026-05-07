@@ -63,10 +63,16 @@ Save this summary to `team/onboarding-progress/{name}-{start-date}.md` so the ne
 ## Available Guides
 
 - `team/onboarding-guides/onboarding-general.md` — shared setup + Day 1-5 reading list (everyone reads this first)
-- `team/onboarding-guides/onboarding-product.md` — product management
+- `team/onboarding-guides/onboarding-product.md` — product management (includes First-90-Days arc for junior PMs)
 - `team/onboarding-guides/onboarding-engineering.md` — engineering
 - `team/onboarding-guides/onboarding-design.md` — design
 - `team/onboarding-guides/onboarding-analytics.md` — analytics
 - `team/onboarding-guides/onboarding-data-engineering.md` — data engineering
-- `team/onboarding-guides/onboarding-strategy-ops.md` — strategy & ops (non-technical contributors); includes the three-paths option
+- `team/onboarding-guides/onboarding-strategy-ops.md` — strategy & ops (non-technical contributors); three-paths option
+- `team/onboarding-guides/onboarding-sales.md` — AEs and sales engineers
+- `team/onboarding-guides/onboarding-customer-success.md` — CSMs and CS leaders
 - `team/onboarding-guides/github-101.md` — for anyone new to git/GitHub
+
+## Successor Onboarding (Replacing an Outgoing PM)
+
+If the new hire is replacing a departed PM, also load `team/handoffs/{outgoing-pm}-{date}.md` if it exists. Walk the successor through the predecessor's hindsight notes, open loops, and unshipped drafts before the standard Day 1-5 list. The handoff doc takes precedence over the generic Day 2 "3 most recent decisions" — read those decisions *with* the predecessor's hindsight notes attached.

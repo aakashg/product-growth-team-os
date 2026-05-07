@@ -12,7 +12,8 @@ For any "why did we choose X?" question, search this folder first. Files are nam
 
 > Append new decisions to the **bottom** of this list (don't insert in the middle — that creates merge conflicts when two PMs file decisions on the same day). One bullet per line, one decision per bullet. Keep the list to the most recent ~10; older decisions are still searchable but don't need to be in the index.
 
-- [2026-02-14-usage-based-pricing.md](2026-02-14-usage-based-pricing.md) — Chose tiered pricing with usage guardrails over per-seat and credit pools
+- [2026-02-14-usage-based-pricing.md](2026-02-14-usage-based-pricing.md) — Chose tiered pricing with usage guardrails over per-seat and credit pools (Full variant example)
+- [example-2026-05-01-quick-decision.md](example-2026-05-01-quick-decision.md) — Pushed demo by 2 days so dashboard ships first (Quick variant example)
 
 ## How to Add
 

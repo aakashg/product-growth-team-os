@@ -85,6 +85,19 @@ For decisions made quickly without formal deliberation:
 
 Hannah's repo logs architectural rationale in RFCs and design rationale in PRDs. We add a decisions/ folder for decisions that don't fit either — pricing, GTM, scoping, prioritization, vendor selection. If your decision is purely architectural, log it in `engineering/rfcs/{area}/{slug}-rfc.md` instead.
 
+## Hindsight Notes (Add as the Decision Ages)
+
+Decisions get a `## Hindsight` section appended over time as the team learns whether the call was right. Examples:
+
+```markdown
+## Hindsight
+
+- 2026-05-20 (3 months in): The assumption that competitor X would stay ecosystem-locked is starting to break. They shipped an open API. Revisit revisit-conditions if their adoption accelerates.
+- 2026-08-01 (6 months in, outgoing PM): Watched the cost ratio settle at 18x, not the 22x we modeled. Tier B's pricing should be re-tuned. Successor should review.
+```
+
+Run the `/pm-handoff` workflow before a PM departure — it sweeps recent decisions and prompts hindsight notes.
+
 ## Same-Day Decisions
 
 If two decisions land on the same day, file names like `2026-05-06-vendor-x.md` and `2026-05-06-launch-delay.md` don't collide because the slugs differ. **If two decisions on the same day would have overlapping slugs**, append a 2-digit sequence: `2026-05-06-pricing-01.md`, `2026-05-06-pricing-02.md`. Before writing, `ls` the decisions folder for files matching the date prefix to detect collisions.
