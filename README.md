@@ -147,4 +147,4 @@ License: CC BY-NC 4.0. See [LICENSE](LICENSE).
 
 ## Deep Dive
 
-Read the full guide: [How to Build a Team OS](https://www.news.aakashg.com/) (Product Growth Newsletter)
+Read the full guide: [How to Build a Team OS](https://www.news.aakashg.com/p/team-os-cc) (Product Growth Newsletter)
