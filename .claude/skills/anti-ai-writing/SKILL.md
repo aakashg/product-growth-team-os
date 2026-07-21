@@ -15,9 +15,19 @@ This is a writing-quality tool, not a verdict. The patterns flagged here are sta
 
 Brand context: the "AI slop perception" guard in our LinkedIn and newsletter skills exists because readers punish content that smells generated. This skill is the enforcement layer for that guard.
 
+## What modern detectors actually measure (Pangram reality check)
+
+The pattern catalog below is necessary but not sufficient. The strongest commercial detector, Pangram, is not a word-list or perplexity/burstiness heuristic — it's a transformer classifier trained end-to-end on 1M+ human documents plus "synthetic mirrors" (LLM rewrites of those same documents), hardened with active learning and hard negative mining specifically against paraphrasers and humanizer tools. Third-party evals found it detects over 90% of "high-quality humanized" content, catches hybrid human/AI documents at the sentence level (95% accuracy where other detectors score 0–60%), and holds a ~1-in-10,000 false-positive rate. Pangram's own research argues perplexity and burstiness signals fail — which means the tricks humanizer tools use (synonym swaps, sentence-length jitter, injected typos) are exactly what its adversarial training targets.
+
+Three operating consequences for this skill:
+
+1. **Surface edits don't flip a classifier.** Swapping "delve" for "dig into" and varying sentence lengths cleans up the read for humans but leaves the deep structure — idea ordering, information density, argument shape — that the classifier keys on. That's why rewrite mode reconstructs instead of paraphrasing (see the Reconstruction Protocol).
+2. **The signal that reads human is content a model couldn't have generated.** Specific numbers from your own data, a named customer moment, a take that cuts against the consensus, a detail from the room. Classifiers learned the human distribution from real documents, and real documents are full of un-inventable specifics. This is also just better writing — the fix for detection and the fix for quality are the same fix.
+3. **No rewrite can guarantee a 0% score, and this skill doesn't promise one.** Anything that did would be lying to you — Pangram is adversarially retrained against whatever evasion pattern becomes common. The honest guarantee is different: text that leaves this skill carrying real human input (your specifics, your position, your structure) both reads human and *is* substantially human. That's the durable target; chasing a detector number is an arms race we don't play. If a piece must clear a detector and contains no human input to inject, the answer is to add human input, not to launder the text.
+
 ## Modes
 
-**`rewrite`** (default) — Flag AI-isms, rewrite the text, then run one corrective second pass on the rewrite.
+**`rewrite`** (default) — Flag AI-isms, rewrite the text, then run one corrective second pass on the rewrite. For lightly-flagged text this means targeted fixes; past the patch-vs-reconstruct threshold it means the full Reconstruction Protocol (below), which rebuilds from the claims instead of paraphrasing the sentences.
 
 **`detect`** — Flag only, no rewriting. Use when the writer wants to decide what to fix themselves, when patterns might be intentional, or when auditing text you shouldn't alter (published content, someone else's writing).
 
@@ -240,9 +250,21 @@ Structure is the #1 detection signal — detection tools weight structural regul
 - **Paragraph-reshuffle test**: can you swap two body paragraphs without breaking the piece? If order doesn't matter, it's a list of points, not an argument that builds. Fix is structural: make each paragraph depend on the one before.
 - **Treadmill test**: what's actually *new* in each paragraph? If you could cut 40–60% and lose no information, do.
 
-### When to rewrite from scratch vs. patch
+### When to patch vs. reconstruct
 
-5+ flagged vocabulary hits across categories + 3+ distinct pattern categories + uniform sentence/paragraph length = the structure itself is AI-generated. Patching won't fix it. State the core point in one sentence and rebuild.
+5+ flagged vocabulary hits across categories + 3+ distinct pattern categories + uniform sentence/paragraph length = the structure itself is AI-generated. Patching won't fix it — for humans or classifiers. Run the Reconstruction Protocol.
+
+### Reconstruction Protocol (for heavily-AI text)
+
+Paraphrasing AI text produces humanized AI text, which is the exact category detectors are adversarially trained on. Reconstruction breaks the generation-order fingerprint by rebuilding from claims, not sentences:
+
+1. **Extract the skeleton.** Reduce the draft to a bare list of its claims, facts, and numbers — no prose, no ordering inherited from the draft. Discard any claim that's filler (if it survived only because it sounded good, it goes).
+2. **Collect human input.** Before rewriting, get from the writer at least two of: a first-hand specific (what they saw, said, shipped, measured), a number from their own data, a position ("I think X, most people think Y"), or a concrete example with a name and date. If the writer is present, ask. If not, flag the draft as **unpublishable as-is** and list exactly what's needed — do not fill the gap with invented color, which recreates the problem with extra steps.
+3. **Reorder for argument, not coverage.** AI drafts order ideas for completeness (setup → aspects → conclusion). Rebuild the order around the writer's actual point: lead with the strongest specific, let each paragraph depend on the previous one (reshuffle test), cut anything the argument doesn't need.
+4. **Write forward from the skeleton** in the target voice, applying the full pattern catalog as you write rather than as a cleanup pass. Never look back at the original draft's phrasing while writing — that's how its structure leaks through.
+5. **Audit the result** against the catalog and the writer-side diagnostics (reshuffle, treadmill). Confirm the human input from step 2 made it in and carries weight — a bolted-on anecdote in paragraph one with AI prose after it fails the sentence-level check.
+
+Use the protocol whenever the patch-vs-reconstruct threshold trips, whenever the user says the text "was AI-generated" or asks to "fully humanize" it, and by default for anything headed to a channel where detection matters.
 
 ---
 
@@ -312,6 +334,7 @@ For social and newsletter content, the default voice is Aakash's, as defined in 
 2. **Rewritten version** — full clean text. Preserve structure, intent, and all specifics. Only change what the guidelines require.
 3. **What changed** — the meaningful edits, not every word
 4. **Second-pass audit** — re-read the rewrite, fix any surviving tells inline, note what changed. If clean, say so.
+5. **Human-input ledger** (Reconstruction Protocol runs only) — list the writer-supplied specifics that went in and where. If the ledger is empty, the piece ships flagged as "cleaned, not humanized" with a list of what's still needed.
 
 ### Detect mode
 1. **Issues found** — grouped by severity (P0, P1, P2), offending text quoted
